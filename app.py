@@ -1,9 +1,7 @@
 from flask import Flask
 
-#Another comment goes here :)
-# this is my version!
-
 app = Flask(__name__)
+""" This is an app variable """
 
 @app.route('/')
 def index():
@@ -11,4 +9,7 @@ def index():
 
 @app.route('/test')
 def test():
+    """
+    This is a great function
+    """
     return "This is a test"
