@@ -1,5 +1,5 @@
 from flask import jsonify, abort
-from database.operations import search_db_data, get_db_data
+from database.operations import search_db_data, get_db_data, search_by_id
 
 def __generate_json(results):
     """
@@ -10,10 +10,14 @@ def __generate_json(results):
     line = 0
     """ Current line for loop """
 
-    for row in results:
-        r = [row.id, row.name ,row.address, row.postcode,  row.city,  row.license_granting_date,  row.license_type, row.business_id]
+    if hasattr(results, 'count'):
+        for row in results:
+            r = [row.id, row.name ,row.address, row.postcode,  row.city,  row.license_granting_date,  row.license_type, row.business_id]
+            data.insert(line, r)
+            line +=1
+    else:
+        r = [results.id, results.name ,results.address, results.postcode,  results.city,  results.license_granting_date,  results.license_type, results.business_id]
         data.insert(line, r)
-        line +=1
 
     response = jsonify({'data': data})
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -31,6 +35,16 @@ def get_json(all=True, search_keyword=None):
         return __generate_json(results)
     elif all==False and search_keyword!=None:
         results = search_db_data(search_keyword)
+        return __generate_json(results)
+    else:
+        abort(404)
+
+def get_by_id(id):
+    if id==None:
+        abort(404)
+    
+    results = search_by_id(id)
+    if results:
         return __generate_json(results)
     else:
         abort(404)

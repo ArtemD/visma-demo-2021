@@ -27,6 +27,10 @@ def search_db_data(keyword):
     """ Return all rows matching keyword (searches name and business_id) """
     return __get_session().query(License).filter(or_(License.name.ilike('%{0}%'.format(keyword)), License.business_id.ilike('%{0}%'.format(keyword))))
 
+def search_by_id(id):
+    """ Search for license by id """
+    return __get_session().query(License).get(id)
+
 def get_db_data():
     """ Returns all rows found in database """
     return __get_session().query(License).all()

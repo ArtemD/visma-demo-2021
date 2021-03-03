@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+{% block body %}
+<h1>Alcohol license holding companies in Finland</h1>
+
+<table id="data" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Postcode</th>
+            <th>City</th>
+            <th>License date</th>
+            <th>Type</th>
+            <th>Business ID</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Postcode</th>
+            <th>City</th>
+            <th>License date</th>
+            <th>Type</th>
+            <th>Business ID</th>
+        </tr>
+    </tfoot>
+</table>
+
+
+<script>
+    $(document).ready(function() {
+        $('#data').DataTable( {
+            "ajax": '/api/v1/all',
+            responsive: true
+        } );
+    } );
+</script>
+{% endblock %}
