@@ -34,5 +34,5 @@ jobs:
     - name: Test with pytest
       run: |
         export LOG_DIR='logs'
-        export DATABASE_URL=''
+        export DATABASE_URL='sqlite:///database.db'
         python tests.py
